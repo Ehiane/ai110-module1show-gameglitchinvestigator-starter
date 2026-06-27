@@ -10,7 +10,8 @@ def get_range_for_difficulty(difficulty: str):
         return 1, 50
     return 1, 100
 
-
+# FIX ME: The logic breaks here
+# Bug: this function has no boundary checking, it accepts any integer without validating it's low and high range. 
 def parse_guess(raw: str):
     if raw is None:
         return False, None, "Enter a guess."
@@ -106,6 +107,8 @@ if "history" not in st.session_state:
 
 st.subheader("Make a guess")
 
+# FIX ME: The logic breaks here
+# Bug: this shouldn't be hardcoded to 100, it should be based on the difficulty range.
 st.info(
     f"Guess a number between 1 and 100. "
     f"Attempts left: {attempt_limit - st.session_state.attempts}"
@@ -155,6 +158,8 @@ if submit:
     else:
         st.session_state.history.append(guess_int)
 
+        # FIX ME: The logic breaks here
+        # Bug: On even numbers it compares string values to int values, using ascii values as the numerical value of the string, causing an unexpected behavior. 
         if st.session_state.attempts % 2 == 0:
             secret = str(st.session_state.secret)
         else:
