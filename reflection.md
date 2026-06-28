@@ -23,8 +23,8 @@ Document at least 3 bugs you found. Add rows as needed.
 |-------|-------------------|-----------------|------------------------|
 |guess of 50 | "Go Higher"  | "Go Lower" |  None|
 |guess of -15  | "Out of bounds" | "Go Lower" | None|
+|click "New Game" after winning | whole new game session starts | page stuck on "You already won" message, no interaction possible | None|
 |new game  | whole new game session | it was stuck on the "Game over. Start new game to try again." | ```ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host```  |
-|... | ...  | ... |  ... |
 
 ---
 
