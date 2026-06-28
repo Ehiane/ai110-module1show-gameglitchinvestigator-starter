@@ -9,6 +9,9 @@ def get_range_for_difficulty(difficulty: str):
     return 1, 100
 
 
+# FIX ME: The logic breaks here
+# Bug: this function has no boundary checking, it accepts any integer without validating it's low and high range. 
+# Fix: Add boundary checking to ensure the guess is within the range defined by the difficulty level.
 def parse_guess(raw: str):
     """
     Parse user input into an int guess.
@@ -32,6 +35,9 @@ def parse_guess(raw: str):
     return True, value, None
 
 
+# FIX ME: The logic breaks here
+# Bug: On even numbers it compares string values to int values, using ascii values as the numerical value of the string, causing an unexpected behavior. 
+# FIX: Removed string comparison logic that was causing backwards hints on even attempts
 def check_guess(guess, secret):
     """
     Compare guess to secret and return (outcome, message).

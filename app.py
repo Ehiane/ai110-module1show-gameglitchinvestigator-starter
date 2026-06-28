@@ -46,6 +46,7 @@ st.subheader("Make a guess")
 
 # FIX ME: The logic breaks here
 # Bug: this shouldn't be hardcoded to 100, it should be based on the difficulty range.
+# Fix: Use the high value from the difficulty range instead of hardcoding 100.
 st.info(
     f"Guess a number between 1 and 100. "
     f"Attempts left: {attempt_limit - st.session_state.attempts}"
@@ -99,7 +100,7 @@ if submit:
 
         if show_hint:
             st.warning(message)
-
+        
         st.session_state.score = update_score(
             current_score=st.session_state.score,
             outcome=outcome,
