@@ -136,6 +136,7 @@ Document at least 3 bugs you found. Add rows as needed.
 ## 4. What did you learn about Streamlit and state?
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+  * Imagine refreshing a web page everytime you click something. The session state is like how browser cookies work, you remember your data so you don't lose your games' progress. 
 
 ---
 
@@ -143,5 +144,11 @@ Document at least 3 bugs you found. Add rows as needed.
 
 - What is one habit or strategy from this project that you want to reuse in future labs or projects?
   - This could be a testing habit, a prompting strategy, or a way you used Git.
+    * Definetly the Test Driven Development aspect of things. Identifying an issue, creating a test to isolate that issue, fixing the issue, then explainig the fix afterwards. 
+    * Another good habit I have gotten from this project is my prompting strategy, being consice and having seperate chats to handle seperate things. 
+
 - What is one thing you would do differently next time you work with AI on a coding task?
+  * Reviewing the output critically and asking clarifying questions before accepting it's suggestion. 
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+  * It's not always perfect and needs to be reviewed before accepting. It's only as good as how you prompt it. If you don't provide the needed context, it will assume and some of those assumptions may be the exact thing you are avoiding. 
