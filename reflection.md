@@ -24,6 +24,7 @@ Document at least 3 bugs you found. Add rows as needed.
 |guess of 50 | "Go Higher"  | "Go Lower" |  None|
 |guess of -15  | "Out of bounds" | "Go Lower" | None|
 |click "New Game" after winning | whole new game session starts | page stuck on "You already won" message, no interaction possible | None|
+|Win a game | Developer Debug Info shows current final score and attempts | Debug Info shows stale values from before the winning guess (e.g., Attempts: 5, Score: -15 while final score message shows correct value 15) | None|
 |new game  | whole new game session | it was stuck on the "Game over. Start new game to try again." | ```ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host```  |
 
 ---

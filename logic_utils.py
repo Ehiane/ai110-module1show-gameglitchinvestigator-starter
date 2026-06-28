@@ -67,6 +67,38 @@ def update_score(current_score: int, outcome: str, attempt_number: int):
         return current_score - 5
 
     if outcome == "Too Low":
+        if attempt_number % 2 == 0:
+            return current_score + 5
         return current_score - 5
 
     return current_score
+
+
+def explain_score(current_score: int, history: list, attempts: int):
+    """Generate a human-readable explanation of how the current score was calculated."""
+    if not history:
+        return "Score starts at 0. Make your first guess!"
+
+    explanation = "Score Breakdown:\n"
+    running_score = 0
+
+    for i, guess in enumerate(history):
+        attempt_num = i + 1
+
+        if attempt_num == attempts and attempt_num == len(history):
+            points = 100 - 10 * (attempt_num + 1)
+            if points < 10:
+                points = 10
+            explanation += f"• Attempt {attempt_num} (Won): +{points} = {running_score + points}\n"
+            running_score += points
+        else:
+            if attempt_num % 2 == 0:
+                points = 5
+                explanation += f"• Attempt {attempt_num} (Wrong, even): +5 = {running_score + 5}\n"
+                running_score += 5
+            else:
+                points = -5
+                explanation += f"• Attempt {attempt_num} (Wrong, odd): -5 = {running_score - 5}\n"
+                running_score -= 5
+
+    return explanation

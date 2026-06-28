@@ -266,3 +266,75 @@ class TestIntegration:
         outcome, _ = check_guess(guess, secret)
         score = update_score(score, outcome, attempt)
         assert score == 60  # 0 + (100 - 10*(3+1)) = 0 + 60
+
+
+class TestDebugInfoAccuracy:
+    """Tests for Debug Info display accuracy.
+
+    Bug: Developer Debug Info was showing stale state values when placed early in page render.
+    This test ensures the final score calculation is always accurate for display purposes.
+    """
+
+    def test_win_score_displayed_correctly_after_multiple_wrong_guesses(self):
+        """Final score should reflect all wrong guesses plus win bonus."""
+        secret = 52
+        score = 0
+        attempt = 1
+
+        # Wrong guess 1: Too Low
+        ok, guess, _ = parse_guess("25")
+        outcome, _ = check_guess(guess, secret)
+        score = update_score(score, outcome, attempt)
+        assert score == -5
+
+        # Wrong guess 2: Too Low
+        attempt = 2
+        ok, guess, _ = parse_guess("50")
+        outcome, _ = check_guess(guess, secret)
+        score = update_score(score, outcome, attempt)
+        assert score == -10
+
+        # Wrong guess 3: Too High (odd attempt)
+        attempt = 3
+        ok, guess, _ = parse_guess("75")
+        outcome, _ = check_guess(guess, secret)
+        score = update_score(score, outcome, attempt)
+        assert score == -15
+
+        # Wrong guess 4: Too High (even attempt, +5)
+        attempt = 4
+        ok, guess, _ = parse_guess("65")
+        outcome, _ = check_guess(guess, secret)
+        score = update_score(score, outcome, attempt)
+        assert score == -10
+
+        # Wrong guess 5: Too Low
+        attempt = 5
+        ok, guess, _ = parse_guess("55")
+        outcome, _ = check_guess(guess, secret)
+        score = update_score(score, outcome, attempt)
+        assert score == -15
+
+        # Winning guess 6
+        attempt = 6
+        ok, guess, _ = parse_guess("52")
+        outcome, _ = check_guess(guess, secret)
+        score = update_score(score, outcome, attempt)
+        # Win bonus: 100 - 10*(6+1) = 100 - 70 = 30
+        assert score == 15
+
+    def test_score_consistency_across_attempt_numbers(self):
+        """Score should be consistent regardless of when it's displayed."""
+        secret = 50
+        score = 0
+
+        # Simulate several attempts
+        for attempt in range(1, 6):
+            score = update_score(score, "Too Low", attempt)
+
+        # After 5 "Too Low" attempts, score should be -25
+        assert score == -25
+
+        # Win on attempt 6 should add exactly 30 points
+        win_score = update_score(score, "Win", 6)
+        assert win_score == 5
